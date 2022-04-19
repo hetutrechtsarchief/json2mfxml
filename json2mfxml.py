@@ -31,6 +31,7 @@ for soort in soorten:
 
 #----------------------------
 
+os.chdir(caller_dir)
 with open(inputfilename) as json_file:
   items = json.load(json_file)
 
