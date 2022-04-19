@@ -10,18 +10,10 @@ def getDateString():
   return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 tpl = {}
-# table = {}
 username = "MFRCOMPA"
 
 caller_dir = os.getcwd()
 script_dir = os.path.dirname(os.path.realpath(__file__))
-
-# print("old_dir",old_dir)
-
-# os.chdir()
-
-# print("cur_dir",os.getcwd())
-
 
 if len(argv)!=3:
   print(f"Usage: {argv[0]} input.json output.xml")
@@ -96,7 +88,6 @@ with open(inputfilename) as json_file:
       
       os.chdir(caller_dir)
       print(result, file=outfile)
-      
      
       # if items.index(item)>20:
       #   sys.exit()
