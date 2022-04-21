@@ -23,7 +23,7 @@ inputfilename = argv[1] #"items2.json"
 outputfilename = argv[2] #"Hardenbroek.xml"
 
 #load template files
-soorten = [ "abk","db","eb","hsk","inl","inv","lst","pgf","rub","vb","audit" ]
+soorten = [ "abk","db","eb","hsk","inl","inv","lst","pgf","rub","vb","audit", "err" ] #err=error
 for soort in soorten:
   os.chdir(script_dir)
   tpl[soort] = Liquid("templates/"+soort+".xml", liquid_from_file=True) 
