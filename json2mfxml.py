@@ -15,15 +15,25 @@ username = "MFRCOMPA"
 caller_dir = os.getcwd()
 script_dir = os.path.dirname(os.path.realpath(__file__))
 
-if len(argv)!=3:
-  print(f"Usage: {argv[0]} input.json output.xml")
-  sys.exit()
+if len(argv)!=4:
+  print(f"Usage: {argv[0]} INPUT.json HEADER.mfxml OUTPUT.mfxml")
+  sys.exit(1)
 
 inputfilename = argv[1] #"items2.json"
-outputfilename = argv[2] #"Hardenbroek.xml"
+header_template = argv[2] #"header_template.xml"
+outputfilename = argv[3] #"Hardenbroek.mfxml"
+
+with open(header_template) as infile:
+  header = infile.read()
+  header = header.replace('<MFEXPORT VERSION="31.0" ENCODING="UTF-8">\n','') # strip this tag..
+
+
+# this is to replace references to id=1 to the id from the template
+top_id = int(re.findall(r"<ID>(.*)</ID>", header)[0])
+
 
 #load template files
-soorten = [ "abk","db","eb","hsk","inl","inv","lst","pgf","rub","vb","audit", "err" ] #err=error
+soorten = [ "db","eb","hsk","inl","inv","lst","pgf","rub","vb","audit", "err" ] #err=error   "abk",
 for soort in soorten:
   os.chdir(script_dir)
   tpl[soort] = Liquid("templates/"+soort+".xml", liquid_from_file=True) 
@@ -36,19 +46,41 @@ with open(inputfilename) as json_file:
   items = json.load(json_file)
 
   #open output file
-  with open(outputfilename, 'w') as outfile: # let op: moet UTF8 mét BOM zijn.
-    outfile.write(u'\ufeff') # write UTF8 BOM signature
+  with open(outputfilename, 'w', encoding='utf-8') as outfile: # let op: moet UTF8 mét BOM zijn.
+    # outfile.write(u'\ufeff') # write UTF8 BOM signature
     print(u"Writing to " + outputfilename)
 
+
+    # print header
+    print(header, file=outfile)
+
+
     for item in items:
+
+      if item["aet"]=="abk":
+        continue # skip because where using the ABK from the HEADER template
+
       
-      nummer = ""
-      code = ""
-      if "code" in item:
-        if item["code"].isnumeric():
-          nummer = item["code"]
-        else:
-          code = item["code"]
+      if not "nummer" in item:
+        item["nummer"] = ""
+
+
+# print(top_id)
+
+# sys.exit()
+
+      # nummer = ""
+      # code = ""
+      # if "code" in item:
+      #   if item["code"].isnumeric():
+      #     nummer = item["code"]
+      #   else:
+      #     code = item["code"]
+
+      if item["parentIndex"]==1:
+        item["parentIndex"] = top_id
+
+
 
 
       data = {
@@ -64,16 +96,16 @@ with open(inputfilename) as json_file:
         "DateMutated": getDateString(),
         "VoorlopigNummer": "",
         "Volgnummer": item["index"],
-        "Nummer": nummer,
-        "Beginjaar": "",
-        "Eindjaar": "",
-        "Datering": "",
-        "Aantal": "",
-        "UiterlijkeVorm": "",
+        "Nummer": item["nummer"],
+        "Beginjaar": item["Beginjaar"] if "Beginjaar" in item else "",
+        "Eindjaar": item["Eindjaar"] if "Eindjaar" in item else "",
+        "Datering": item["Datering"] if "Datering" in item else "",
+        "Aantal": item["Aantal"] if "Aantal" in item else "",
+        "UiterlijkeVorm": item["UiterlijkeVorm"] if "UiterlijkeVorm" in item else "",
         "Orde": "",
         "Notabene": item["Notabene"] if "Notabene" in item else "",
-        "Code": code,
-        "TopID": items[0]["index"]
+        "Code": item["code"],
+        "TopID": top_id   #items[0]["index"]
       }
 
       # check for known aet
