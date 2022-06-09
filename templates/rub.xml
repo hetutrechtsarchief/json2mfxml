@@ -1,0 +1,25 @@
+<AHD>
+<ID>{{ID}}</ID>
+<AET>RUB</AET>
+<VOORLOPIG_NUMMER>{{VoorlopigNummer}}</VOORLOPIG_NUMMER>
+<NUMMER>{{Nummer}}</NUMMER>
+<CODE>{{Code}}</CODE>
+<VOLGNUMMER>{{Volgnummer}}</VOLGNUMMER>
+<AHD_ID>{{ParentID}}</AHD_ID>
+<ADT_ID>39</ADT_ID>
+<AHD_ID_TOP>{{TopID}}</AHD_ID_TOP>
+<KOT_CODE>BES</KOT_CODE>
+<UITLEENPRIORITEIT>1</UITLEENPRIORITEIT>
+<GUID>{{GUID}}</GUID>
+<AWE>
+<NAAM>TITEL</NAAM>
+<PROMPT>Titel</PROMPT>
+<WAARDE>{{Text}}</WAARDE>
+</AWE>
+<AWE>
+<NAAM>NOTABENE</NAAM>
+<PROMPT>Notabene</PROMPT>
+<WAARDE>{{Notabene}}</WAARDE>
+</AWE>
+{% include "templates/audit.xml" %}
+</AHD>

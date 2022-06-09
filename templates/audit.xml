@@ -1,0 +1,20 @@
+<AWE>
+<NAAM>DATECREATED</NAAM>
+<PROMPT>Aanmaakdatum</PROMPT>
+<WAARDE>{{DateCreated}}</WAARDE>
+</AWE>
+<AWE>
+<NAAM>DATEMUTATED</NAAM>
+<PROMPT>Wijzigingsdatum</PROMPT>
+<WAARDE>{{DateMutated}}</WAARDE>
+</AWE>
+<AWE>
+<NAAM>USERCREATED</NAAM>
+<PROMPT>Aangemaakt door</PROMPT>
+<WAARDE>{{UserCreated}}</WAARDE>
+</AWE>
+<AWE>
+<NAAM>USERMUTATED</NAAM>
+<PROMPT>Gewijzigd door</PROMPT>
+<WAARDE>{{UserMutated}}</WAARDE>
+</AWE>

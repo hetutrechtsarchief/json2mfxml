@@ -1,0 +1,18 @@
+<AHD>
+<ID>{{ID}}</ID>
+<AET>INL</AET>
+<VOORLOPIG_NUMMER>{{VoorlopigNummer}}</VOORLOPIG_NUMMER>
+<VOLGNUMMER>{{Volgnummer}}</VOLGNUMMER>
+<AHD_ID>{{ParentID}}</AHD_ID>
+<ADT_ID>39</ADT_ID>
+<AHD_ID_TOP>{{TopID}}</AHD_ID_TOP>
+<KOT_CODE>BES</KOT_CODE>
+<UITLEENPRIORITEIT>1</UITLEENPRIORITEIT>
+<GUID>{{GUID}}</GUID>
+<AWE>
+<NAAM>BESCHRIJVING</NAAM>
+<PROMPT>Beschrijving</PROMPT>
+<WAARDE>{{Text}}</WAARDE>
+</AWE>
+{% include "templates/audit.xml" %}
+</AHD>
